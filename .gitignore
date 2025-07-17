@@ -1,0 +1,65 @@
+#ignore .env
+*.env
+#ingore ides
+
+.spyproject/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.so
+*.dylib
+*.dll
+*.egg-info/
+
+
+# Virtual Environments / ect.
+*.vscode
+.vscode/
+.idea/
+.venv
+env/
+venv/
+env.bak/
+venv.bak/
+backups/
+defaults/
+
+# Jupyter Notebook ect
+.virtual_documents/
+.ipynb_checkpoints/
+
+# Ignore logs
+*.log
+*.tmp
+debug.log
+profile.prof
+*logs/
+
+# OS-Specific Files
+.DS_Store
+.Trash-*
+
+# Ignore build artifacts
+build/
+dist/
+
+# Ignore all files in any directory named debug
+**/debug/*
+
+
+# compiler related
+*.c
+*.so
+*.spec
+
+#windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+
+*.ini.bak
+*.ini
+
+
