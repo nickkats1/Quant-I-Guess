@@ -11,7 +11,7 @@ __pycache__/
 *.dylib
 *.dll
 *.egg-info/
-
+*.pytest_cache
 
 # Virtual Environments / ect.
 *.vscode
