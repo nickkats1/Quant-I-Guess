@@ -1,6 +1,6 @@
 # Date range for data download
 start_date: '2020-10-10'
-end_date: '2025-07-17'
+end_date: '2025-08-14'
 
 # ticker classes
 
@@ -16,7 +16,6 @@ stock_tickers:
  - WMT
  - V
  - NFLX
- - TKO
 
 
 
