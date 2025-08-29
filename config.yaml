@@ -1,65 +1,95 @@
 # Date range for data download
 start_date: '2020-10-10'
-end_date: '2025-08-14'
+end_date: '2025-08-28'
 
 # ticker classes
 
 stock_tickers:
  - AAPL
- - NVDA
- - MSFT
  - GOOGL
  - META
  - TSLA
- - JPM
- - AVGO
+ - TGT
+ - SBUX
+ - WBA
+ - RGTI
+ - BLCN
  - WMT
- - V
- - NFLX
-
+ - F
+ - IBM
+ - MCD
+ - GM
+ - VZ
+ - T
 
 
 etf_tickers:
- - SPY
- - IVV
- - VTI
+ - BLCN
+ - URA
+ - XSD
+ - FPX
+ - AADR
+ - QTUM
+ - PSI
+ - ARKW
+ - BLOK
  - QQQ
- - VUG
- - BND
+
+
+
 
 
 
 crypto_tickers:
  - BTC-USD
- - XPR-USD
- - ADA-USD
+ - ETH-USD
+ - XRP-USD
+ - USDT-USD
+ - BNB-USD
  - SOL-USD
- - DAI-USD
- - MATIC-USD
+ - USDC-USD
+ - STETH-USD
+ - TRX-USD
 
 
 
-# all tickers
-
-all_tickers:
+#assets combined
+combined_assets:
  - AAPL
- - NVDA
- - MSFT
  - GOOGL
  - META
  - TSLA
- - SPY
- - IVV
- - VTI
- - QQQ
- - VUG
- - BND
+ - TGT
+ - SBUX
+ - WBA
+ - RGTI
+ - BLCN
+ - WMT
+ - F
+ - IBM
+ - MCD
+ - GM
+ - VZ
+ - T
+ - BLCN
+ - URA
+ - XSD
+ - FPX
+ - AADR
+ - QTUM
+ - PSI
+ - ARKW
+ - BLOK
  - BTC-USD
- - XPR-USD
- - ADA-USD
+ - ETH-USD
+ - XRP-USD
+ - USDT-USD
+ - BNB-USD
  - SOL-USD
- - DAI-USD
- - MATIC-USD
+ - USDC-USD
+ - STETH-USD
+ - LINK-USD
+ - TRX-USD
 
 
 
@@ -67,9 +97,8 @@ all_tickers:
 
 
 
-
-#risk-free rate (very safe assets like treasury bonds) I will use TIP
-risk_free_rate: 0.005
+#risk-free rate (very safe assets like treasury bonds)
+risk_free_rate: 0.0092
 
 
 
@@ -81,26 +110,23 @@ sp500_ticker: ^GSPC
 #for single index model
 sim_tickers:
  - AAPL
- - NVDA
  - MSFT
  - GOOGL
  - META
  - TSLA
- - JPM
- - AVGO
+ - TGT
+ - SBUX
+ - WBA
+ - RGTI
+ - BLCN
  - WMT
- - V
- - NFLX
+ - F
+ - IBM
+ - MCD
+ - GM
+ - VZ
+ - T
  - ^GSPC
-
-
-
-# path to data with all tickers
-all_data_path: data/raw/portfolio.csv
-stock_data_path: data/raw/stocks.csv
-etf_data_path: data/raw/etf.csv
-crypto_data: data/raw/crypto.csv
-sp500_data: data/raw/sp500.csv
 
 
 
