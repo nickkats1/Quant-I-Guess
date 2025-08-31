@@ -1,39 +1,35 @@
 # Date range for data download
 start_date: '2020-10-10'
-end_date: '2025-08-28'
+end_date: '2025-08-30'
 
 # ticker classes
 
 stock_tickers:
  - AAPL
- - GOOGL
- - META
- - TSLA
+ - MSFT
  - TGT
- - SBUX
- - WBA
- - RGTI
- - BLCN
- - WMT
- - F
- - IBM
- - MCD
  - GM
- - VZ
- - T
+ - F
+ - WMT
+ - MCD
+ - SBUX
+ - TSLA
+ - GOOGL
+
 
 
 etf_tickers:
- - BLCN
- - URA
- - XSD
- - FPX
- - AADR
- - QTUM
- - PSI
- - ARKW
- - BLOK
- - QQQ
+- SPY
+- QQQ
+- VTI
+- VOO
+- ARKK
+- IWM
+- DIA
+- XLF
+- XLK
+- EFA
+
 
 
 
@@ -50,36 +46,31 @@ crypto_tickers:
  - USDC-USD
  - STETH-USD
  - TRX-USD
-
+ - LINK-USD
 
 
 #assets combined
 combined_assets:
  - AAPL
- - GOOGL
- - META
- - TSLA
+ - MSFT
  - TGT
- - SBUX
- - WBA
- - RGTI
- - BLCN
- - WMT
- - F
- - IBM
- - MCD
  - GM
- - VZ
- - T
- - BLCN
- - URA
- - XSD
- - FPX
- - AADR
- - QTUM
- - PSI
- - ARKW
- - BLOK
+ - F
+ - WMT
+ - MCD
+ - SBUX
+ - TSLA
+ - GOOGL
+ - SPY
+ - QQQ
+ - VTI
+ - VOO
+ - ARKK
+ - IWM
+ - DIA
+ - XLF
+ - XLK
+ - EFA
  - BTC-USD
  - ETH-USD
  - XRP-USD
@@ -88,9 +79,8 @@ combined_assets:
  - SOL-USD
  - USDC-USD
  - STETH-USD
- - LINK-USD
  - TRX-USD
-
+ - LINK-USD
 
 
 
@@ -129,8 +119,12 @@ sim_tickers:
  - ^GSPC
 
 
-
-
+# paths to market data
+all_data_path: data/raw/combined.csv
+stock_data_path: data/raw/stocks.csv
+etf_data_path: data/raw/etfs.csv
+crypto_data_path: data/raw/crypto.csv
+sp500_data_path: data/raw/sp500.csv
 
 
 

@@ -13,7 +13,7 @@ os.makedirs(LOG_DIR, exist_ok=True)
 
 
 LOG_FORMAT = "%(asctime)s - %(levelname)s - %(name)s - %(lineno)d - %(message)s"
-DATE_FORMAT = "%Y-%m-%d %H:%M:%S" # Consistent timestamp format
+DATE_FORMAT = "%Y-%m-%d %H:%M:%S" 
 
 
 formatter = logging.Formatter(fmt=LOG_FORMAT, datefmt=DATE_FORMAT)

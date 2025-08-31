@@ -2,7 +2,7 @@ from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
-from src.utils import config
+from src import config
 import matplotlib.pyplot as plt
 
 

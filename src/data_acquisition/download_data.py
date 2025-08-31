@@ -1,41 +1,68 @@
+from src.config import load_config
 import yfinance as yf
-from src.utils.config import load_config
-import pandas as pd
-from src.utils.logger import logger
 
 
-def load_data(config):
-    """Loads in Assets from yfinance from config.yaml and seperate dataframe for each asset class"""
-    try:
-        all_data = yf.download(tickers=config['all_tickers'],start=config['start_date'],end=config['end_date'])['Close']
-        stocks = yf.download(tickers=config['stock_tickers'],start=config['start_date'],end=config['end_date'])['Close']
-        etfs = yf.download(tickers=config['etf_tickers'],start=config['start_date'],end=config['end_date'])['Close']
-        crypto = yf.download(tickers=config['crypto_tickers'],start=config['start_date'],end=config['end_date'])['Close']
-        sp500 = yf.download(tickers=config['sp500_ticker'],start=config['start_date'],end=config['end_date'])['Close']
-        sim_data = yf.download(tickers=config['sim_tickers'],start=config['start_date'],end=config['end_date'])['Close']
-        all_data = all_data.dropna()
-        stocks = stocks.dropna()
-        etfs = etfs.dropna()
-        crypto = crypto.dropna()
-        sim_data = sim_data.dropna()
-        return all_data,stocks,etfs,crypto,sp500,sim_data
-    except Exception as e:
-        raise e
+
+
+
+class LoadData:
+    def __init__(self,config):
+        self.config = config
+        self.prices = None
+        self.stocks= None
+        self.etfs = None
+        self.crypto = None
+        self.sp500 = None
+
+
+    def fetch_data(self):
+        """
+        fetches data from yfinance given the selected asset class
+        """
+        self.prices = yf.download(self.config['combined_assets'],start=self.config['start_date'],end=self.config['end_date'])['Close']
+        self.prices = self.prices.dropna()
+        self.prices.drop_duplicates(inplace=True)
+        self.prices.to_csv(self.config['all_data_path'])
+        return self.prices
+    
+    def fetch_stock_data(self):
+        """
+        same as before but only stocks
+        """
+        self.stocks = yf.download(self.config['stock_tickers'],start=self.config['start_date'],end=self.config['end_date'])['Close']
+        self.stocks = self.stocks.dropna()
+        self.stocks.drop_duplicates(inplace=True)
+        self.stocks.to_csv(self.config['stock_data_path'])
+        return self.stocks
+    
+    def fetch_etf_data(self):
+        """etf"""
+        self.etfs = yf.download(tickers=self.config['etf_tickers'],start=self.config['start_date'],end=self.config['end_date'])['Close']
+        self.etfs = self.etfs.dropna()
+        self.etfs.drop_duplicates(inplace=True)
+        self.etfs.to_csv(self.config['etf_data_path'])
+        return self.etfs
+    
+    def fetch_crypto_data(self):
+        """
+        fetches crypto data
+        """
+        self.crypto = yf.download(tickers=self.config['crypto_tickers'],start=self.config['start_date'],end=self.config['end_date'])['Close']
+        self.crypto = self.crypto.dropna()
+        self.crypto.drop_duplicates(inplace=True)
+        self.crypto.to_csv(self.config['crypto_data_path'])
+        return self.crypto
+    
+    def fetch_sp500_data(self):
+        """Fetches market data from market"""
+        self.sp500 = yf.download(tickers="^GSPC",start=self.config['start_date'],end=self.config['end_date'])['Close']
+        self.sp500 = self.sp500.dropna()
+        self.sp500.drop_duplicates(inplace=True)
+        self.sp500.to_csv(self.config['sp500_data_path'])
+        return self.sp500
+
+
 
 if __name__ == "__main__":
-    try:
-        config = load_config()
-
-
-        all_data, stocks, etfs, crypto, sp500, sim_data = load_data(config)
-
-        all_data.to_csv("data/raw/portfolio.csv") 
-        stocks.to_csv("data/raw/stocks.csv")
-        etfs.to_csv("data/raw/etf.csv")
-        crypto.to_csv("data/raw/crypto.csv")
-        sp500.to_csv("data/raw/sp500.csv")
-        sim_data.to_csv("data/raw/sim_data.csv")
-        logger.info("Data successfully loaded and saved to data/")
-
-    except Exception as e:
-        logger.error(f"An error occurred in the main execution block: {e}") 
+    config = load_config()
+    data_config = LoadData(config)

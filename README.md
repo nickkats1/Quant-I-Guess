@@ -11,7 +11,7 @@ A bunch of finance stuff I remember from Economics.
 
 Watch Both Parts
 
-#### VaR Expected ShortFall
+#### Value at Risk and Conditional Value at Risk (CVar)
 
 ![var_es_portfolio](images/VaR-Cvar-EfficientDiversification.png)
 
@@ -92,10 +92,7 @@ I did not add other more CAPM related things becuase I like Markowits
 * This is a contrained optimization problem with the weights being the asset classes.
 You cannot just have risky weight Efficient Diversifcation, you do not put all of your eggs into one basket
 
-There is a lot to be talked about here, and I am tired and nlp and cv and all of ml and CS in general is 1000 times
-easier to me than finance. I am not a "finance guy" the transformer mechanism makes me pumped!
-I do not bro out, I have bro'ed out and got mad lit with the boys, but, no, I am a geeky ml/dl lad.
-Like, I want to do RAG so badly right now it is hurting. Ok. time for sleep this readme.md was cringe.
+
 
 
 
