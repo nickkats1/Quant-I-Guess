@@ -4,7 +4,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import os
-from src import config
+from src.config import load_config
 
 
 class Sim:
@@ -22,8 +22,9 @@ class Sim:
         return self.data
     
     def single_index_model(self,output_dir="images/sim"):
+
         if self.data is None:
-            self.fetch_data()
+            self.data = self.fetch_data()
 
         stock_tickers = self.config['stock_tickers']
         sp500_ticker = self.config['sp500_ticker']
