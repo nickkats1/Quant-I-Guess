@@ -27,61 +27,38 @@ Expected shortfall is furter to the left compared to Value at Risk(VaR) and take
 ![google_sim](images/sim/single_index_model_GOOGL.png)
 
 ```text
-Single Index Model for: GOOGL
-Excess Returns for Historical Stock Data: Date
-2021-04-22    111.945367
-2021-04-23    114.301736
-2021-04-26    114.798761
-2021-04-27    113.856904
-2021-04-28    117.239625
-                 ...    
-2025-08-21    199.740800
-2025-08-22    206.080796
-2025-08-25    208.480805
-2025-08-26    207.130799
-2025-08-27    207.470796
-Name: GOOGL, Length: 1093, dtype: float64
-Market Excess Return: Date
-2021-04-22    4134.970780
-2021-04-23    4180.160722
-2021-04-26    4187.610917
-2021-04-27    4186.711015
-2021-04-28    4183.170976
-                 ...     
-2025-08-21    6370.160722
-2025-08-22    6466.900956
-2025-08-25    6439.310624
-2025-08-26    6465.930741
-2025-08-27    6481.390702
-Name: ^GSPC, Length: 1093, dtype: float64
-Standard Deviation of Excess Returns: 28.836430641537838
+--- Single Index Model for: GOOGL ---
+Alpha (intercept): 0.000297
+Beta (market sensitivity): 1.261452
+R-squared: 0.4924
+Residual Variance (Unsystematic Risk): 0.000194
+
+Full regression summary:
                             OLS Regression Results                            
 ==============================================================================
-Dep. Variable:                  GOOGL   R-squared:                       0.885
-Model:                            OLS   Adj. R-squared:                  0.885
-Method:                 Least Squares   F-statistic:                     8375.
-Date:                Sat, 30 Aug 2025   Prob (F-statistic):               0.00
-Time:                        14:53:48   Log-Likelihood:                -4044.4
-No. Observations:                1093   AIC:                             8093.
-Df Residuals:                    1091   BIC:                             8103.
+Dep. Variable:                  GOOGL   R-squared:                       0.492
+Model:                            OLS   Adj. R-squared:                  0.492
+Method:                 Least Squares   F-statistic:                     1138.
+Date:                Wed, 03 Sep 2025   Prob (F-statistic):          6.44e-175
+Time:                        10:12:26   Log-Likelihood:                 3354.7
+No. Observations:                1175   AIC:                            -6705.
+Df Residuals:                    1173   BIC:                            -6695.
 Df Model:                           1                                         
 Covariance Type:            nonrobust                                         
 ==============================================================================
                  coef    std err          t      P>|t|      [0.025      0.975]
 ------------------------------------------------------------------------------
-const        -33.2534      1.903    -17.473      0.000     -36.988     -29.519
-^GSPC          0.0360      0.000     91.513      0.000       0.035       0.037
+const          0.0003      0.000      0.731      0.465      -0.001       0.001
+^GSPC          1.2615      0.037     33.732      0.000       1.188       1.335
 ==============================================================================
-Omnibus:                       98.910   Durbin-Watson:                   0.041
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):               34.845
-Skew:                          -0.163   Prob(JB):                     2.71e-08
-Kurtosis:                       2.188   Cond. No.                     3.10e+04
+Omnibus:                      174.562   Durbin-Watson:                   1.925
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             2401.373
+Skew:                          -0.053   Prob(JB):                         0.00
+Kurtosis:                      10.003   Cond. No.                         92.0
 ==============================================================================
 
 Notes:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-[2] The condition number is large, 3.1e+04. This might indicate that there are
-strong multicollinearity or other numerical problems.
 ```
 All of the Single Index models have the SP500 at the independent variable and the asset(stocks in this case)
 as the dependent variable. Excess returns,ect
