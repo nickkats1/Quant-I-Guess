@@ -27,34 +27,34 @@ Expected shortfall is furter to the left compared to Value at Risk(VaR) and take
 ![google_sim](images/sim/single_index_model_GOOGL.png)
 
 ```text
---- Single Index Model for: GOOGL ---
-Alpha (intercept): 0.000297
-Beta (market sensitivity): 1.261452
-R-squared: 0.4924
-Residual Variance (Unsystematic Risk): 0.000194
+--- Single Index Model for: AAPL ---
+Alpha (intercept): 0.000003
+Beta (market sensitivity): 1.258999
+R-squared: 0.5890
+Residual Variance (Unsystematic Risk): 0.000131
 
 Full regression summary:
                             OLS Regression Results                            
 ==============================================================================
-Dep. Variable:                  GOOGL   R-squared:                       0.492
-Model:                            OLS   Adj. R-squared:                  0.492
-Method:                 Least Squares   F-statistic:                     1138.
-Date:                Wed, 03 Sep 2025   Prob (F-statistic):          6.44e-175
-Time:                        10:12:26   Log-Likelihood:                 3354.7
-No. Observations:                1175   AIC:                            -6705.
-Df Residuals:                    1173   BIC:                            -6695.
+Dep. Variable:           Asset_Excess   R-squared:                       0.589
+Model:                            OLS   Adj. R-squared:                  0.589
+Method:                 Least Squares   F-statistic:                     1681.
+Date:                Sat, 06 Sep 2025   Prob (F-statistic):          9.92e-229
+Time:                        06:38:22   Log-Likelihood:                 3586.2
+No. Observations:                1175   AIC:                            -7168.
+Df Residuals:                    1173   BIC:                            -7158.
 Df Model:                           1                                         
 Covariance Type:            nonrobust                                         
+=================================================================================
+                    coef    std err          t      P>|t|      [0.025      0.975]
+---------------------------------------------------------------------------------
+const          2.574e-06      0.000      0.008      0.994      -0.001       0.001
+Market_Excess     1.2590      0.031     41.001      0.000       1.199       1.319
 ==============================================================================
-                 coef    std err          t      P>|t|      [0.025      0.975]
-------------------------------------------------------------------------------
-const          0.0003      0.000      0.731      0.465      -0.001       0.001
-^GSPC          1.2615      0.037     33.732      0.000       1.188       1.335
-==============================================================================
-Omnibus:                      174.562   Durbin-Watson:                   1.925
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):             2401.373
-Skew:                          -0.053   Prob(JB):                         0.00
-Kurtosis:                      10.003   Cond. No.                         92.0
+Omnibus:                      110.401   Durbin-Watson:                   1.824
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              664.923
+Skew:                           0.152   Prob(JB):                    4.11e-145
+Kurtosis:                       6.673   Cond. No.                         92.0
 ==============================================================================
 
 Notes:

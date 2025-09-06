@@ -81,6 +81,7 @@ combined_assets:
  - STETH-USD
  - TRX-USD
  - LINK-USD
+ - ^GSPC
 
 
 
