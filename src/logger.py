@@ -5,7 +5,7 @@ from logging.handlers import RotatingFileHandler
 
 
 LOG_DIR = "logs"
-LOG_FILENAME = "running_log.log"
+LOG_FILENAME = "running_logs.log"
 LOG_FILEPATH = os.path.join(LOG_DIR, LOG_FILENAME)
 
 
@@ -13,7 +13,7 @@ os.makedirs(LOG_DIR, exist_ok=True)
 
 
 LOG_FORMAT = "%(asctime)s - %(levelname)s - %(name)s - %(lineno)d - %(message)s"
-DATE_FORMAT = "%Y-%m-%d %H:%M:%S" 
+DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 
 formatter = logging.Formatter(fmt=LOG_FORMAT, datefmt=DATE_FORMAT)

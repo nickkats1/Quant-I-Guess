@@ -1,6 +1,6 @@
 # Date range for data download
 start_date: '2020-10-10'
-end_date: '2025-09-01'
+end_date: '2025-10-01'
 
 # ticker classes
 
@@ -121,12 +121,13 @@ sim_tickers:
 
 
 # paths to market data
-all_data_path: data/raw/combined.csv
+all_data_path: data/raw/all_prices.csv
 stock_data_path: data/raw/stocks.csv
 etf_data_path: data/raw/etfs.csv
 crypto_data_path: data/raw/crypto.csv
 sp500_data_path: data/raw/sp500.csv
-
+# returns path
+returns_path: data/processed/returns.csv
 
 
 

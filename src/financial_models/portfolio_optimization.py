@@ -4,32 +4,36 @@ import seaborn as sns
 import yfinance as yf
 from src.config import load_config
 import numpy as np
+from pypfopt import expected_returns,EfficientFrontier,risk_models
+from pypfopt.discrete_allocation import DiscreteAllocation,get_latest_prices
+from src.financial_models.VaR import Var
 
 class EfficientDiversification:
     def __init__(self,config):
         self.config = config
-        self.all_prices = None #all assets combined
-        self.mu = None # expected returns using pyportfolio
-        self.S = None # Risk(Vol) through pyportfolio
-        self.ef = None # Efficient Frontier using pyportfolio
-        self.weights = None # weights
-        self.performance = None # portfolio performance
-        
-    def load_data(self):
-        """Loads in data from yfinance using config.yaml"""
-        self.all_prices = yf.download(tickers=self.config['combined_assets'],start=self.config['start_date'],end=self.config['end_date'])['Close']
-        self.all_prices = self.all_prices.dropna()
-        return self.all_prices   
-    
-    def eval_returns(self):
-        """
-        The pct change for each asset(returns). This is not the same
-        as 'Expected Returns'
-        """
 
-        returns = self.all_prices.pct_change().dropna()
-        print(f'Returns: {returns}')
-        return returns
+
+        
+    def fetch_data(self) -> pd.DataFrame:
+        """Loads in data from yfinance using config.yaml"""
+        try:
+            self.all_prices = yf.download(tickers=self.config['combined_assets'],start=self.config['start_date'],end=self.config['end_date'])['Close']
+            self.all_prices = self.all_prices.dropna()
+            self.all_prices.drop_duplicates(inplace=True)
+            return self.all_prices
+        except Exception as e:
+            raise e 
+        
+    
+    def get_portfolio_returns(self) -> pd.DataFrame:
+        """ returns from portfolio from yfinance download """
+        try:
+            self.returns = self.all_prices.pct_change().dropna()
+            return self.returns
+        except Exception as e:
+            raise e
+        
+
     
     
     def portfolio_metrics(self):
@@ -40,11 +44,7 @@ class EfficientDiversification:
             (Ef) -> Efficient Frontier;
         """
 
-        if self.all_prices is None:
-            self.load_data()
-            if self.all_prices is None:
-                return
-            
+
         self.mu = expected_returns.mean_historical_return(self.all_prices)
         self.S = risk_models.sample_cov(self.all_prices)
         self.ef = EfficientFrontier(self.mu,self.S)
@@ -68,6 +68,5 @@ class EfficientDiversification:
 if __name__ == "__main__":
     config = load_config()
     ef_obj = EfficientDiversification(config)
-
 
 
