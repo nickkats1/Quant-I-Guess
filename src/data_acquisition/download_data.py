@@ -15,56 +15,56 @@ class LoadData:
         """
         fetches data from yfinance given the selected asset class
         """
-        self.all_prices = yf.download(self.config['combined_assets'],start=self.config['start_date'],end=self.config['end_date'])['Close']
-        self.all_prices = self.all_prices.dropna()
-        self.all_prices.drop_duplicates(inplace=True)
-        self.all_prices.to_csv("data/raw/all_prices.csv",index="Date")
-        return self.all_prices
+        all_prices = yf.download(self.config['combined_assets'],start=self.config['start_date'],end=self.config['end_date'])['Close']
+        all_prices = all_prices.dropna()
+        all_prices.drop_duplicates(inplace=True)
+        all_prices.to_csv("data/raw/all_prices.csv",index="Date")
+        return all_prices
     
     def fetch_stock_data(self):
         """
         same as before but only stocks
         """
-        self.stocks = yf.download(self.config['stock_tickers'],start=self.config['start_date'],end=self.config['end_date'])['Close']
-        self.stocks = self.stocks.dropna()
-        self.stocks.drop_duplicates(inplace=True)
-        self.stocks.to_csv("data/raw/stocks.csv",index="Date")
-        return self.stocks
+        stocks = yf.download(self.config['stock_tickers'],start=self.config['start_date'],end=self.config['end_date'])['Close']
+        stocks = stocks.dropna()
+        stocks.drop_duplicates(inplace=True)
+        stocks.to_csv("data/raw/stocks.csv",index="Date")
+        return stocks
     
     def fetch_etf_data(self):
         """etf"""
-        self.etfs = yf.download(tickers=self.config['etf_tickers'],start=self.config['start_date'],end=self.config['end_date'])['Close']
-        self.etfs = self.etfs.dropna()
-        self.etfs.drop_duplicates(inplace=True)
-        self.etfs.to_csv("data/raw/etfs.csv",index="Date")
-        return self.etfs
+        etfs = yf.download(tickers=self.config['etf_tickers'],start=self.config['start_date'],end=self.config['end_date'])['Close']
+        etfs = etfs.dropna()
+        etfs.drop_duplicates(inplace=True)
+        etfs.to_csv("data/raw/etfs.csv",index="Date")
+        return etfs
     
     def fetch_crypto_data(self):
         """
         fetches crypto data from yfinance
         """
-        self.crypto = yf.download(tickers=self.config['crypto_tickers'],start=self.config['start_date'],end=self.config['end_date'])['Close']
-        self.crypto = self.crypto.dropna()
-        self.crypto.drop_duplicates(inplace=True)
-        self.crypto.to_csv("data/raw/crypto.csv",index="Date")
-        return self.crypto
+        crypto = yf.download(tickers=self.config['crypto_tickers'],start=self.config['start_date'],end=self.config['end_date'])['Close']
+        crypto = crypto.dropna()
+        crypto.drop_duplicates(inplace=True)
+        crypto.to_csv("data/raw/crypto.csv",index="Date")
+        return crypto
     
     def fetch_sp500_data(self):
         """Fetches market data from market"""
-        self.sp500 = yf.download(tickers='^GSPC',start=self.config['start_date'],end=self.config['end_date'])['Close']
-        self.sp500 = self.sp500.dropna()
-        self.sp500.drop_duplicates(inplace=True)
-        self.sp500.to_csv("data/raw/sp500.csv",index="Date")
-        return self.sp500
+        sp500 = yf.download(tickers='^GSPC',start=self.config['start_date'],end=self.config['end_date'])['Close']
+        sp500 = sp500.dropna()
+        sp500.drop_duplicates(inplace=True)
+        sp500.to_csv("data/raw/sp500.csv",index="Date")
+        return sp500
     
     def fetch_returns(self):
         """
         Fetches returns from combined assets
         """
-        self.returns = yf.download(tickers=self.config['combined_assets'],start=self.config['start_date'],end=self.config['end_date'])['Close']
-        self.returns = self.returns.pct_change().dropna()
-        self.returns.to_csv("data/processed/returns.csv",index="Date")
-        return self.returns
+        returns = yf.download(tickers=self.config['combined_assets'],start=self.config['start_date'],end=self.config['end_date'])['Close']
+        returns = returns.pct_change().dropna()
+        returns.to_csv("data/processed/returns.csv",index="Date")
+        return returns
     
 
 
