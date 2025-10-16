@@ -176,11 +176,4 @@ class Sim:
 
 
 
-if __name__ == "__main__":
-    config = load_config()
-    sim_config = Sim(config)
-    sim_config.get_data()
-    sim_config.single_index_model()
-
-
 

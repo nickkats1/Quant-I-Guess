@@ -65,8 +65,3 @@ class EfficientDiversification:
 
 
 
-if __name__ == "__main__":
-    config = load_config()
-    ef_obj = EfficientDiversification(config)
-
-

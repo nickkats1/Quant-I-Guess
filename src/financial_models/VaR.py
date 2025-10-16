@@ -62,15 +62,6 @@ class Var:
         plt.grid(True)
         plt.show()
 
-if __name__ == "__main__":
-    config = load_config()
-    var_config = Var(config)
-    var_config.load_data()
-    var = var_config.get_var()
-    print(f'Value at Risk: {var}')
-    cvar = var_config.get_cvar()
-    print(f'Conditional Value at Risk: {cvar}')
-    var_config.plot_returns()
 
 
 

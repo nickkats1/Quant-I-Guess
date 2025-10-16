@@ -1,6 +1,6 @@
 # Date range for data download
-start_date: '2020-10-10'
-end_date: '2025-10-01'
+start_date: '2020-10-15'
+end_date: '2025-10-15'
 
 # ticker classes
 
@@ -98,26 +98,6 @@ sp500_ticker: ^GSPC
 
 
 
-#for single index model
-sim_tickers:
- - AAPL
- - MSFT
- - GOOGL
- - META
- - TSLA
- - TGT
- - SBUX
- - WBA
- - RGTI
- - BLCN
- - WMT
- - F
- - IBM
- - MCD
- - GM
- - VZ
- - T
- - ^GSPC
 
 
 # paths to market data
