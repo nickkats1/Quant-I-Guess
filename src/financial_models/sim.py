@@ -161,13 +161,5 @@ class Sim:
 
 
 
-<<<<<<< HEAD
-=======
-if __name__ == "__main__":
-    config = load_config()
-    sim_config = Sim(config)
-    sim_config.fetch_yfinance_data()
-    sim_config.single_index_model()
->>>>>>> cfa7ff10c9bc118b312e95803c0ad34bea659972
 
 

@@ -69,13 +69,3 @@ class EfficientDiversification:
 
 
 
-<<<<<<< HEAD
-=======
-if __name__ == "__main__":
-    config = load_config()
-    ef_obj = EfficientDiversification(config)
-    ef_obj.fetch_data()
-    ef_obj.get_portfolio_returns()
-    ef_obj.portfolio_metrics()
-
->>>>>>> cfa7ff10c9bc118b312e95803c0ad34bea659972
