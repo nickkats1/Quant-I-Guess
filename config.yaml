@@ -1,6 +1,11 @@
 # Date range for data download
+<<<<<<< HEAD
 start_date: '2020-10-15'
 end_date: '2025-10-15'
+=======
+start_date: '2020-10-10'
+end_date: '2025-09-10'
+>>>>>>> cfa7ff10c9bc118b312e95803c0ad34bea659972
 
 # ticker classes
 

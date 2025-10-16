@@ -7,58 +7,37 @@ import numpy as np
 from pypfopt import expected_returns
 import os
 import yfinance as yf
-from src.data_acquisition.download_data import LoadData
-from src.logger import logger
-
 
 class Sim:
     def __init__(self,config):
         self.config = config
+
+
+    def fetch_yfinance_data(self):
+        """ Fetch Data from yfinance API """
         
-        
-    def get_data(self):
-        """ fetch data from data ingestion """
-        # combined data
-        self.data = pd.read_csv(self.config['all_data_path'],delimiter=",")
-        return self.data
-    
-    
-    def get_market_data(self):
-        """ Market Data is the SP500 """
-        try:
-            # ticker for sp500
-            sp500_ticker = self.config['sp500_ticker']
-            # all assets ticker
-            all_prices = self.get_data()
-            self.sp500_data = all_prices[sp500_ticker]
-            return self.sp500_data
-        except FileNotFoundError as e:
-            logger.error(f"Could not find file: {e}")
-            raise None
-        
-        
-    def get_returns(self):
-        """ Returns from Sp500 and combined assets """
-        try:
-            self.Market_Returns = self.sp500_data.pct_change().dropna()
-            self.returns = self.data.pct_change().dropna()
-        except Exception as e:
-            logger.exception(f"Error loading data: {e}")
-            raise e
-        
+        # all prices include SP&500
+        all_prices = yf.download(tickers=self.config['combined_assets'],start=self.config['start_date'],end=self.config['end_date'])['Close']
+        all_prices = all_prices.dropna()
+        all_prices.drop_duplicates(inplace=True)
+
+        return all_prices
+
+
     def single_index_model(self,output_dir="images/sim/"):
 
         #tickers to turn data into correct frame
+        all_prices = self.fetch_yfinance_data()
 
         sp500_ticker = self.config['sp500_ticker']
         tickers = self.config['combined_assets']
         risk_free_rate = self.config['risk_free_rate']
 
         # sp500 data
-        self.sp500_data = self.data[sp500_ticker]
+        sp500_data = all_prices[sp500_ticker]
         # Market Returns(sp500) and Market Excess Returns
-        market_returns = self.sp500_data.pct_change().dropna()
-        market_excess_returns = self.sp500_data.pct_change().dropna()
+        market_returns = sp500_data.pct_change().dropna()
+        market_excess_returns = sp500_data.pct_change().dropna()
 
         #market index risk is of the sp500(variance(sp500))
         market_index_risk = np.var(market_returns)
@@ -86,7 +65,7 @@ class Sim:
 
 
         for ticker in tickers:
-            asset_data = self.data[ticker]
+            asset_data = all_prices[ticker]
             returns = asset_data.pct_change().dropna()
             Excess_Returns = asset_data.pct_change().dropna() - risk_free_rate
             print(f'Returns for: {ticker}, {returns}')
@@ -108,7 +87,7 @@ class Sim:
 
 
 
-            #adjusted beta: 2/3 * beta + 1/3 * 1
+            # adjusted beta: 2/3 * beta + 1/3 * 1
             adj_beta = (2/3) * beta + (1/3) * 1
 
 
@@ -161,8 +140,13 @@ class Sim:
             print(f'ANOVA Table: {model.summary()}')
             print(f'R2 Score: {model.rsquared*100:.2f}')
             print(f'Expected Return: {Expected_Return}')
+
+
             
-            
+
+
+
+            ## plots
             plt.figure(figsize=(12,6))
             sns.scatterplot(x=market_returns, y=returns, label=ticker)
             sns.lineplot(x=market_returns, y=model.fittedvalues, color='red', label='Security Market Line')
@@ -171,9 +155,19 @@ class Sim:
             plt.xlabel('Market Excess Return')
             plt.ylabel(f'{ticker} Excess Return')
             plt.legend()
+            os.makedirs(output_dir, exist_ok=True)
+            plt.savefig(os.path.join(output_dir, f"single_index_model_{ticker}.png"))
             plt.show()
 
 
 
+<<<<<<< HEAD
+=======
+if __name__ == "__main__":
+    config = load_config()
+    sim_config = Sim(config)
+    sim_config.fetch_yfinance_data()
+    sim_config.single_index_model()
+>>>>>>> cfa7ff10c9bc118b312e95803c0ad34bea659972
 
 

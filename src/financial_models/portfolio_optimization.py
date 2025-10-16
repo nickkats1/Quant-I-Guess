@@ -17,10 +17,10 @@ class EfficientDiversification:
     def fetch_data(self) -> pd.DataFrame:
         """Loads in data from yfinance using config.yaml"""
         try:
-            self.all_prices = yf.download(tickers=self.config['combined_assets'],start=self.config['start_date'],end=self.config['end_date'])['Close']
-            self.all_prices = self.all_prices.dropna()
-            self.all_prices.drop_duplicates(inplace=True)
-            return self.all_prices
+            all_prices = yf.download(tickers=self.config['combined_assets'],start=self.config['start_date'],end=self.config['end_date'])['Close']
+            all_prices = all_prices.dropna()
+            all_prices.drop_duplicates(inplace=True)
+            return all_prices
         except Exception as e:
             raise e 
         
@@ -28,8 +28,10 @@ class EfficientDiversification:
     def get_portfolio_returns(self) -> pd.DataFrame:
         """ returns from portfolio from yfinance download """
         try:
-            self.returns = self.all_prices.pct_change().dropna()
-            return self.returns
+            # load in all prices
+            all_prices = self.fetch_data()
+            returns = all_prices.pct_change().dropna()
+            return returns
         except Exception as e:
             raise e
         
@@ -44,24 +46,36 @@ class EfficientDiversification:
             (Ef) -> Efficient Frontier;
         """
 
+        #all prices
+        all_prices = self.fetch_data()
 
-        self.mu = expected_returns.mean_historical_return(self.all_prices)
-        self.S = risk_models.sample_cov(self.all_prices)
-        self.ef = EfficientFrontier(self.mu,self.S)
+        mu = expected_returns.mean_historical_return(all_prices)
+        S = risk_models.sample_cov(all_prices)
+        ef = EfficientFrontier(mu,S)
             
 
-        self.weights = self.ef.max_sharpe()
-        self.weights = self.ef.clean_weights()
+        weights = ef.max_sharpe()
+        weights = ef.clean_weights()
 
 
             
-        expected_annual_return, annual_volatility, sharpe_ratio = self.ef.portfolio_performance(verbose=True)
-        self.performance = {
+        expected_annual_return, annual_volatility, sharpe_ratio = ef.portfolio_performance(verbose=True)
+        performance = {
             "Expected Annual Return":expected_annual_return,
             "Annual Volatility":annual_volatility,
             "Sharpe Ratio":sharpe_ratio
         }
-        return self.weights,self.performance
+        return performance,expected_annual_return,annual_volatility,sharpe_ratio,weights
 
 
 
+<<<<<<< HEAD
+=======
+if __name__ == "__main__":
+    config = load_config()
+    ef_obj = EfficientDiversification(config)
+    ef_obj.fetch_data()
+    ef_obj.get_portfolio_returns()
+    ef_obj.portfolio_metrics()
+
+>>>>>>> cfa7ff10c9bc118b312e95803c0ad34bea659972
