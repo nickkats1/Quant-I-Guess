@@ -13,7 +13,7 @@ class Sim:
         self.config = config
 
 
-    def fetch_yfinance_data(self):
+    def fetch_yfinance_data(self) -> pd.DataFrame:
         """ Fetch Data from yfinance API """
         
         # all prices include SP&500
@@ -37,8 +37,6 @@ class Sim:
         sp500_data = all_prices[sp500_ticker]
         # Market Returns(sp500) and Market Excess Returns
         market_returns = sp500_data.pct_change().dropna()
-        market_excess_returns = sp500_data.pct_change().dropna()
-
         #market index risk is of the sp500(variance(sp500))
         market_index_risk = np.var(market_returns)
         print(f'Market Index Risk: {market_index_risk}')
@@ -70,8 +68,11 @@ class Sim:
             Excess_Returns = asset_data.pct_change().dropna() - risk_free_rate
             print(f'Returns for: {ticker}, {returns}')
             print(f'Excess Returns: {Excess_Returns}')
-            print(f'Market Returns: {sp500_ticker},{market_returns};----- Market Excess Returns: {market_excess_returns}')
-
+            print(f'Market Returns: {sp500_ticker},{market_returns};-----')
+            
+            # CAPM expected returns
+            capm_returns = expected_returns.capm_return(asset_data,market_prices=sp500_data,risk_free_rate=self.config['risk_free_rate'])
+            
 
 
             model = sm.OLS(exog=sm.add_constant(market_returns),endog=returns).fit()
@@ -94,7 +95,7 @@ class Sim:
             # Systematic risk is (Beta**2) * Market Index Risk (defined above)
             systematic_risk = (beta**2) * market_index_risk
 
-            #  firm-specific risk is the variance of the "Unanticipated surpises" (the variance of the residuals for the asset)
+            #  firm-specific risk is the variance of the "Unanticipated surprises" (the variance of the residuals for the asset)
             firm_specific_risk = np.var(residuals)
 
             # total risk = systematic Risk + Firm Specific Risk
@@ -112,7 +113,11 @@ class Sim:
             systematic_risks[ticker] = systematic_risk
             firm_specific_risks[ticker] = firm_specific_risk
             total_risks[ticker] = total_risk
+            
+            # values to .csv
 
+
+            print(f"CAPM Returns: {capm_returns}")
             print(f'Alpha Value: {alpha:.4f}')
             print(f'Beta Value: {beta:.4f}')
             print(f'Adjusted Beta: {adj_beta:4f}')
@@ -158,7 +163,6 @@ class Sim:
             os.makedirs(output_dir, exist_ok=True)
             plt.savefig(os.path.join(output_dir, f"single_index_model_{ticker}.png"))
             plt.show()
-
 
 
 

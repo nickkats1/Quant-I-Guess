@@ -110,6 +110,8 @@ sp500_data_path: data/raw/sp500.csv
 returns_path: data/processed/returns.csv
 
 
-
+# portfolio metrics path
+expected_returns_path: data/processed/expected_returns.csv
+volatility_path: data/processed/vol.csv
 
 

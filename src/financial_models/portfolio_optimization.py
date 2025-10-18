@@ -17,9 +17,7 @@ class EfficientDiversification:
     def fetch_data(self) -> pd.DataFrame:
         """Loads in data from yfinance using config.yaml"""
         try:
-            all_prices = yf.download(tickers=self.config['combined_assets'],start=self.config['start_date'],end=self.config['end_date'])['Close']
-            all_prices = all_prices.dropna()
-            all_prices.drop_duplicates(inplace=True)
+            all_prices = pd.read_csv(self.config['all_data_path'],delimiter=",")
             return all_prices
         except Exception as e:
             raise e 
@@ -52,20 +50,23 @@ class EfficientDiversification:
         mu = expected_returns.mean_historical_return(all_prices)
         S = risk_models.sample_cov(all_prices)
         ef = EfficientFrontier(mu,S)
-            
+        
+        # save mu,S, Efficient Frontier to .csv
+        
+        mu.to_csv(self.config['expected_returns_path'],index=0)
+        S.to_csv(self.config['volatility_path'],index=0)
+
 
         weights = ef.max_sharpe()
         weights = ef.clean_weights()
-
+    
 
             
-        expected_annual_return, annual_volatility, sharpe_ratio = ef.portfolio_performance(verbose=True)
+        expected_annual_return, annual_volatility, sharpe_ratio = ef.portfolio_performance(verbose=False)
         performance = {
             "Expected Annual Return":expected_annual_return,
             "Annual Volatility":annual_volatility,
             "Sharpe Ratio":sharpe_ratio
         }
-        return performance,expected_annual_return,annual_volatility,sharpe_ratio,weights
-
-
-
+        
+        return mu,S,weights,performance
